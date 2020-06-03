@@ -5,7 +5,7 @@
 
 This project is a learning project created on the basis of learning from the Udemy course **REST APIs with FLASK and PYTHON**
 
-## Prereuisites
+## Prerequisites
 
 - [X] Make sure you have Flask installed in your system, which will act a server for API work
 - [X] Python3.x is there, this is latest so it is better to use the latest one only
