@@ -67,6 +67,8 @@ def createStore():
 
 # GET /store/<string:name>
 # This is a flask wasy of getting inputs in GET. Ex: http://127.0.0.1:5000/store/some_name
+# <string:name> will be passed as an argument to the follwowing method, and that is why 
+# name should be matched with the one mentioned in the flask route()
 @app.route('/store/<string:name>')
 def getStore(name): # The name should match with the app route which is used as args
     # iterate over stores, if the store name matches return the data
