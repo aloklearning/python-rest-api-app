@@ -7,8 +7,8 @@ This project is a learning project created on the basis of learning from the Ude
 
 ## Prereuisites
 
-- [ ] Make sure you have Flask installed in your system, which will act a server for API work
-- [ ] Python3.x is there, this is latest so it is better to use the latest one only
+- [X] Make sure you have Flask installed in your system, which will act a server for API work
+- [X] Python3.x is there, this is latest so it is better to use the latest one only
 
 ## Getting Started
 
