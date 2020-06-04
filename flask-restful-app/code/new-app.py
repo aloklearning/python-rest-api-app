@@ -13,11 +13,13 @@ app = Flask(__name__)
 app.secret_key = 'alok'
 api = Api(app) # this will allow very easily add resources to it, for any sort of operation PUT, POST, DELETE
 
-# jwt takes app, identity and autheticate
-# combined to autheticate the user
-# gives out the token, and which will be used
-# as a decorator as @jwt_required(), which will not allow the user
-# to pass perform the operation unless verified
+'''
+jwt takes app, identity and autheticate
+combined to autheticate the user
+gives out the token, and which will be used
+as a decorator as @jwt_required(), which will not allow the user
+to pass perform the operation unless verified
+'''
 jwt = JWT(app, authenticate, identity) # /auth is the url which JWT provides
 
 items = []
@@ -28,14 +30,16 @@ class Item(Resource):
     # jwt will autheticate and then get the data here
     @jwt_required()
     def get(self, name):
-        # for item in items:
-        #     if item['name'] == name:
-        #         return item
-        # for the above, we are going to use filter(), 
-        # which the same job, but in a more cleaner way
-        # next() is use to return the first item returned
-        # from multiple items, and None to avoid breaking 
-        # of code when the list is empty
+        '''
+        for item in items:
+            if item['name'] == name:
+                return item
+        for the above, we are going to use filter(), 
+        which the same job, but in a more cleaner way
+        next() is use to return the first item returned
+        from multiple items, and None to avoid breaking 
+        of code when the list is empty
+        '''
         item = next(filter(lambda x: x['name'] == name, items), None)
         return {'item': item}, 200 if item else 404 #flask_restful way of sending the status code with the null data
 
