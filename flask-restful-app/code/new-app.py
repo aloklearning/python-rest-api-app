@@ -1,7 +1,7 @@
 from flask import Flask, request
 #ignore import error cos we this is not defined in our global Python Library list
 from flask_restful import Resource, Api
-from flask_jwt import JWT, jwt_required
+from flask_jwt import JWT, jwt_required #JSON Web Token(JWT), allows us to decode, verify and generate JWT
 
 from security import identity, authenticate
 

@@ -9,18 +9,19 @@ users = [
 # for mapping ease we create two dict comprehension
 # which goes through the users list and return the data
 # accordingly
-username_mapping = {u.username: u for u in users}
-userid_mapping = {u.id: u for u in users}
+username_mapping = {u.username: u for u in users} # {'Bob': User list object}
+userid_mapping = {u.id: u for u in users} # {1: User list object}
 
 # This is for authentication purpose
 def authenticate(username, password):
-    user = username_mapping.get(username, None)
+    user = username_mapping.get(username, None) # <user.User object at 0x10ed0eb10>
     if user and user.password == password: #safe_str_cmp(user.password, password)
-        return user
+        return user #Non-readable and it will be passed to the identity() parameter
 
-# Another form of authenticating the user, 
-# above and below function will be combined 
-# to make the authentication secure
+# JWT takes the return data from the authenticate
+# and pass it as payload in identity()
+# which performs authenticate the user and gives out the token
+# to be passed to the HTTP request as a header to authenticate
 def identity(payload):
     user_id = payload['identity']
     return userid_mapping.get(user_id, None)
