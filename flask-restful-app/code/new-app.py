@@ -15,7 +15,10 @@ api = Api(app) # this will allow very easily add resources to it, for any sort o
 
 # jwt takes app, identity and autheticate
 # combined to autheticate the user
-jwt = JWT(app, authenticate, identity) # /auth
+# gives out the token, and which will be used
+# as a decorator as @jwt_required(), which will not allow the user
+# to pass perform the operation unless verified
+jwt = JWT(app, authenticate, identity) # /auth is the url which JWT provides
 
 items = []
 
