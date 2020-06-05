@@ -66,7 +66,7 @@ class Item(Resource):
 
         item = {'name': name, 'price': data['price']}
         items.append(item)
-        return item, 201 #flask)restful way of sending status 201 which is for CREATED STATUS
+        return item, 201 #flask_restful way of sending status 201 which is for CREATED STATUS
 
     # This is for HTTP DELETE
     def delete(self, name):
