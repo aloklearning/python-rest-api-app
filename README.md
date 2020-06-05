@@ -16,9 +16,9 @@ This project is a learning project created on the basis of learning from the Ude
 
 ## Getting Started
 
-- Information for advanced operation is inside the [Commands.md](https://github.com/aloklearning/python-rest-api-app/blob/master/flask-restful-app/Commands.md)
 - Make sure you are inside the project directory
 - The python project runs on flask, using the command `python<version> app.py`
 - `app.py` file consist of the basic operation with the usage of Flask
 - `flask-restful-app` consists of the `new-app.py` contains the file with advanced operation with `flask-restful` and `flsak-jwt`
+- Information for advanced operation is inside the [Commands.md](https://github.com/aloklearning/python-rest-api-app/blob/master/flask-restful-app/Commands.md)
 
