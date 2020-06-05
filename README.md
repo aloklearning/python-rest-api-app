@@ -11,10 +11,14 @@ This project is a learning project created on the basis of learning from the Ude
 
 - [X] Make sure you have Flask installed in your system, which will act a server for API work
 - [X] Python is installed, better to make use of the latest python only, that is **Version 3.x**
+- [X] For advanced operations, we can install Flask-RESTful for using `Resource`, `Api`, `reqparser`
+- [X] Flask-JWT is required for user authentication via JWT(JSON Web Token) token 
 
 ## Getting Started
 
+- Information for advanced operation is inside the [Commands.md](https://github.com/aloklearning/python-rest-api-app/blob/master/flask-restful-app/Commands.md)
 - Make sure you are inside the project directory
 - The python project runs on flask, using the command `python<version> app.py`
 - `app.py` file consist of the basic operation with the usage of Flask
 - `flask-restful-app` consists of the `new-app.py` contains the file with advanced operation with `flask-restful` and `flsak-jwt`
+
