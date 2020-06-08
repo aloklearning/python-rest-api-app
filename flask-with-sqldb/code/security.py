@@ -6,9 +6,8 @@ users = [
     User(1, 'Bob', 'asdf')
 ]
 
-# for mapping ease we create two dict comprehension
-# which goes through the users list and return the data
-# accordingly
+# Retrieve the user by username
+# Retrieve the user by user_id
 username_mapping = {u.username: u for u in users} # {'Bob': User list object}
 userid_mapping = {u.id: u for u in users} # {1: User list object}
 
@@ -29,6 +28,6 @@ is the user object which we returned in authentication()
 That means that was a valid JWT token passsed by the user
 '''
 def identity(payload):
-    user_id = payload['identity']
+    user_id = payload['identity'] # identity is the user_id
     return userid_mapping.get(user_id, None)
 
