@@ -27,6 +27,8 @@ class Item(Resource):
         return {'item': item}, 200 if item else 404 #flask_restful way of sending the status code with the null data
         '''
 
+        # using the classmethod to find the name
+        # if found, store it into the variable
         item = self.find_by_name(name)
 
         if item:
