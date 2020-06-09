@@ -27,6 +27,15 @@ class Item(Resource):
         return {'item': item}, 200 if item else 404 #flask_restful way of sending the status code with the null data
         '''
 
+        item = self.find_by_name(name)
+
+        if item:
+            return item
+        return {'message': 'Item not found'}, 404
+
+    
+    @classmethod
+    def find_by_name(cls, name):
         # now this is using sqlite3
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
@@ -34,19 +43,21 @@ class Item(Resource):
         query = "SELECT * FROM items WHERE name=?"
         results = cursor.execute(query, (name,))
         row = results.fetchone() # show one result only
-
         connection.close()
 
         if row: 
             return {'item': {'name': row[0], 'price': row[1]}}
-        return {'message': 'Item not found'}, 404
-
 
     # this handles the post request, this is simplified using flask_restful only
     def post(self, name):
         # check if the item already exits 
         # to avoid duplicacy via name
-        if next(filter(lambda x: x['name'] == name, items), None):
+        # if next(filter(lambda x: x['name'] == name, items), None):
+        #     # 400 Status code for Bad Request
+        #     return {'message': "The item is already there with the name '{ }'.".format(name)}, 400
+
+        # This is for sqlite check operation
+        if self.find_by_name(name):
             # 400 Status code for Bad Request
             return {'message': "The item is already there with the name '{ }'.".format(name)}, 400
         
@@ -58,7 +69,17 @@ class Item(Resource):
         data = Item.parser.parse_args() # data = {"price": 15.99}, data['price'] = 15.99
 
         item = {'name': name, 'price': data['price']}
-        items.append(item)
+        #items.append(item)
+        
+        connection = sqlite3.connect('data.db')
+        cursor = connection.cursor()
+
+        query = "INSERT INTO items VALUES (?, ?)"
+        cursor.execute(query, (item['name'], item['price']))
+
+        connection.commit()
+        connection.close()
+
         return item, 201 #flask_restful way of sending status 201 which is for CREATED STATUS
 
     # This is for HTTP DELETE
