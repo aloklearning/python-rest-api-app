@@ -4,6 +4,7 @@ from flask_restful import Resource, Api, reqparse
 from flask_jwt import JWT, jwt_required #JSON Web Token(JWT), allows us to decode, verify and generate JWT
 
 from security import identity, authenticate
+from user import UserRegister
 
 app = Flask(__name__)
 # This is an entity to identify
@@ -97,6 +98,7 @@ class ItemList(Resource):
 # It helps in saving time for doing @app.route(URL)
 api.add_resource(Item, '/item/<string:name>') #http://127.0.0.1:5000/item/item_name
 api.add_resource(ItemList, '/items')
+api.add_resource(UserRegister, '/register') # this is coming from the user.py file
 
 # debug=true gives out a detailed desc of 
 # what went wrong in the server side
