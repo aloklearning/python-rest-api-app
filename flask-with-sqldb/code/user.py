@@ -67,6 +67,11 @@ class UserRegister(Resource):
         # data for passing into the execute query
         data = UserRegister.parser.parse_args()
 
+        # checking for any duplicate user exists
+        # in DB already
+        if User.find_by_username(data['username']):
+            return {"message": "A user with that username already exists"}, 400
+        
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
         query = "INSERT INTO users VALUES (NULL, ?, ?)" # NULL is for auto increment, it will suffice
