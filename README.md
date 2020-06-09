@@ -20,5 +20,6 @@ This project is a learning project created on the basis of learning from the Ude
 - The python project runs on flask, using the command `python<version> app.py`
 - `app.py` file consist of the basic operation with the usage of Flask
 - `flask-restful-app` consists of the `code/new-app.py` contains the file with advanced operation with `flask-restful` and `flsak-jwt`
+- `flask-with-sqldb` consists of same folders like, `code/new-app.py` with operation using `sqlite3`, which is used as our database. So this is not at all working volatile data now. The data is being stored in the `data.db` file, which is the DataBase file in this case
 - Information for advanced operation is inside the [Commands.md](https://github.com/aloklearning/python-rest-api-app/blob/master/flask-restful-app/Commands.md)
 
