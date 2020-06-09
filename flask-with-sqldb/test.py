@@ -50,5 +50,5 @@ for row in connection.execute(select_query):
     print(row)
 
 connection.commit() # to save all our changes to the file which we defined
-connection.commit() # to close the connection, not to recieve any more data or consuming resources
+connection.close() # to close the connection, not to recieve any more data or consuming resources
 
