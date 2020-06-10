@@ -2,7 +2,6 @@ import sqlite3
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 
-items = []
 # Every resources has to be a class, which will inherit the Resource
 class Item(Resource):
     # reqparser to be used for parsing the form data, also
@@ -149,4 +148,22 @@ class Item(Resource):
 
 class ItemList(Resource):
     def get(self):
-        return {'items': items}
+        # return {'items': items} # old operation
+        connection = sqlite3.connect('data.db')
+        cursor = connection.cursor()
+
+        query = "SELECT * FROM items"
+        result = cursor.execute(query)
+        items = []
+
+        # row is nothing but getting the 
+        # dictionary from the list of the result 
+        # obtained from the item list in the DB
+        for row in result:
+            # row comes in tuple format, so we have to extract the 
+            # the value like row[0], row[1] to pass in dictionary
+            # since items consists of array of dicts
+            items.append({'name': row[0], 'price': row[1]})
+
+        connection.close()
+        return {'items': items} # always in dictionary format
