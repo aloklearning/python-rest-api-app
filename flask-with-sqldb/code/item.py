@@ -2,6 +2,7 @@ import sqlite3
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 
+items = []
 # Every resources has to be a class, which will inherit the Resource
 class Item(Resource):
     # reqparser to be used for parsing the form data, also
@@ -86,10 +87,21 @@ class Item(Resource):
 
     # This is for HTTP DELETE
     def delete(self, name):
-        global items # This is to define that this is from the outer scope of this method
-        # Returns the item exept the item which has the name passed using lambda
-        items = list(filter(lambda x: x['name'] != name, items))
-        return {'message': 'The item has been successfully deleted'}
+        # global items # This is to define that this is from the outer scope of this method
+        # # Returns the item exept the item which has the name passed using lambda
+        # items = list(filter(lambda x: x['name'] != name, items))
+
+        # Using sqlite3
+        connection = sqlite3.connect('data.db')
+        cursor = connection.cursor()
+
+        query = "DELETE FROM items WHERE name=?"
+        cursor.execute(query, (name,))
+
+        connection.commit()
+        connection.close()
+
+        return {'message': f'{name} has been successfully deleted'}
 
     # This is for HTTP PUT i.e., CREATE/UPDATE
     def put(self, name):
