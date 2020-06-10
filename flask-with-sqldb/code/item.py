@@ -114,14 +114,38 @@ class Item(Resource):
     def put(self, name):
         data = Item.parser.parse_args()
 
-        item = next(filter(lambda x: x['name'] == name, items), None)
+        # item = next(filter(lambda x: x['name'] == name, items), None)
+        item = self.find_by_name(name) # searching for the item if exists or not
+        updated_item = {'name': name, 'price': data['price']} # created for updated item data
         # if item is not found, then create a new item
         if item is None:
-            item = {'name': name, 'price': data['price']}
-            items.append(item)
+            #items.append(item) # old operation
+            try:
+                self.insert(updated_item) # this will be stored as a new item only, if item is none
+            except:
+                return {"message": "An error occured while inserting"}, 500
         else:
-            item.update(data) # updates the item with the data received, if found
-        return item
+            #item.update(data) # updates the item with the data received, if found
+            try:
+                self.update(updated_item)
+            except:
+                return {"message": "An error occured while updating"}, 500
+        return updated_item
+
+    #class method which takes care of the update method
+    # We cannot use Flask-RESTful update() since it doesn't
+    # work for sqlite3
+    @classmethod
+    def update(cls, item):
+        connection = sqlite3.connect('data.db')
+        cursor = connection.cursor()
+
+        query = "UPDATE items SET price=? WHERE name=?"
+        cursor.execute(query, (item['price'], item['name']))
+
+        connection.commit()
+        connection.close()
+
 
 class ItemList(Resource):
     def get(self):
