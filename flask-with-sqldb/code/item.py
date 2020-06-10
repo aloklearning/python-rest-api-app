@@ -74,6 +74,15 @@ class Item(Resource):
         item = {'name': name, 'price': data['price']}
         #items.append(item)
         
+        # to check for the errors [If any]
+        try: self.insert(item)
+        except: return {"message": "An error occured while inserting the item"}, 500 # Internal Server Error
+
+        return item, 201 #flask_restful way of sending status 201 which is for CREATED STATUS
+
+    # classmethod responsible for inserting the data
+    @classmethod
+    def insert(cls, item):
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
 
@@ -82,8 +91,6 @@ class Item(Resource):
 
         connection.commit()
         connection.close()
-
-        return item, 201 #flask_restful way of sending status 201 which is for CREATED STATUS
 
     # This is for HTTP DELETE
     def delete(self, name):
