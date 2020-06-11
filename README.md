@@ -8,7 +8,9 @@
 - This project is a learning project created on the basis of learning `backend development` from the Udemy course **REST APIs with FLASK and PYTHON**
 - This will consists of normal Flask level backend dev
 - Using Flask-JWT, Flask-RESTful for advanced backend operations
-- Using Sqlite3, SQLAlchemy for the Database Management
+- Using Sqlite3 for Database Management
+- Using SQLAlchemy for storage simplification
+- Developing more secure REST APIs
 
 ## Prerequisites
 
