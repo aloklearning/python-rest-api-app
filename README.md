@@ -5,7 +5,10 @@
 [![githubbuild](https://img.shields.io/appveyor/build/gruntjs/grunt)](https://img.shields.io/appveyor/build/gruntjs/grunt)
 [![pyversion](https://img.shields.io/pypi/pyversions/django)](https://img.shields.io/pypi/pyversions/django)
 
-This project is a learning project created on the basis of learning from the Udemy course **REST APIs with FLASK and PYTHON**
+- This project is a learning project created on the basis of learning `backend development` from the Udemy course **REST APIs with FLASK and PYTHON**
+- This will consists of normal Flask level backend dev
+- Using Flask-JWT, Flask-RESTful for advanced backend operations
+- Using Sqlite3, SQLAlchemy for the Database Management
 
 ## Prerequisites
 
