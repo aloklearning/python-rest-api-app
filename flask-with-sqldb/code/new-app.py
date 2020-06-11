@@ -25,6 +25,19 @@ gives out the token, and which will be used
 as a decorator as @jwt_required(), which will not allow the user
 to pass perform the operation unless verified
 '''
+
+'''
+It has to be there before we initialise the jwt 
+
+==> To change the by default url of /auth to something else, 
+like /login, do this => app.config['JWT_AUTH_URL_RULE'] = '/login'
+
+==> config JWT to expire within half an hour
+app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=1800)
+
+==> config JWT auth key name to be 'email' instead of default 'username'
+app.config['JWT_AUTH_USERNAME_KEY'] = 'email'
+'''
 jwt = JWT(app, authenticate, identity) # /auth is the url which JWT provides
 
 # items = []

@@ -3,7 +3,7 @@
 [![dependency](https://img.shields.io/github/pipenv/locked/dependency-version/metabolize/rq-dashboard-on-heroku/flask)](https://img.shields.io/github/pipenv/locked/dependency-version/metabolize/rq-dashboard-on-heroku/flask)
 [![license-mit](https://img.shields.io/github/license/aloklearning/python-rest-api-app)](https://img.shields.io/github/license/aloklearning/python-rest-api-app)
 [![githubbuild](https://img.shields.io/appveyor/build/gruntjs/grunt)](https://img.shields.io/appveyor/build/gruntjs/grunt)
-[![pyversion](https://img.shields.io/pypi/pyversions/flask)](https://img.shields.io/pypi/pyversions/flask)
+[![pyversion](https://img.shields.io/pypi/pyversions/django)](https://img.shields.io/pypi/pyversions/django)
 
 This project is a learning project created on the basis of learning from the Udemy course **REST APIs with FLASK and PYTHON**
 
