@@ -33,7 +33,8 @@ class Item(Resource):
         item = ItemModel.find_by_name(name)
 
         if item:
-            return item
+            # return item # cannot return item, cos from itemmodal it returns object
+            return item.json() # return the modal object as JSON data
         return {'message': 'Item not found'}, 404
 
     # this handles the post request, this is simplified using flask_restful only
@@ -56,14 +57,26 @@ class Item(Resource):
         '''
         data = Item.parser.parse_args() # data = {"price": 15.99}, data['price'] = 15.99
 
-        item = {'name': name, 'price': data['price']}
+        # item = {'name': name, 'price': data['price']}
+
+        # now creating the object of the class ItemModal
+        # More of a simplification of a code in a more complex way
+        item = ItemModel(name, data['price'])
         #items.append(item)
         
         # to check for the errors [If any]
-        try: ItemModel.insert(item)
-        except: return {"message": "An error occured while inserting the item"}, 500 # Internal Server Error
+        try: 
+            # ItemModel.insert(item)
 
-        return item, 201 #flask_restful way of sending status 201 which is for CREATED STATUS
+            # This calls the insert() from Modal 
+            # and insert the args which we passed 
+            # already. More of a simplification of 
+            # a code in a more complex way
+            item.insert()
+        except: 
+            return {"message": "An error occured while inserting the item"}, 500 # Internal Server Error
+
+        return item.json(), 201 #flask_restful way of sending status 201 which is for CREATED STATUS
 
 
     # This is for HTTP DELETE
@@ -90,21 +103,25 @@ class Item(Resource):
 
         # item = next(filter(lambda x: x['name'] == name, items), None)
         item = ItemModel.find_by_name(name) # searching for the item if exists or not
-        updated_item = {'name': name, 'price': data['price']} # created for updated item data
+        # updated_item = {'name': name, 'price': data['price']} # created for updated item data
+
+        updated_item = ItemModel(name, data['price']) # object needs to be passed to call the Modal method
         # if item is not found, then create a new item
         if item is None:
             #items.append(item) # old operation
             try:
-                self.insert(updated_item) # this will be stored as a new item only, if item is none
+                # self.insert(updated_item) # this will be stored as a new item only, if item is none
+                updated_item.insert()
             except:
                 return {"message": "An error occured while inserting"}, 500
         else:
             #item.update(data) # updates the item with the data received, if found
             try:
-                ItemModel.update(updated_item)
+                # ItemModel.update(updated_item)
+                updated_item.update()
             except:
                 return {"message": "An error occured while updating"}, 500
-        return updated_item
+        return updated_item.json()
 
 
 class ItemList(Resource):

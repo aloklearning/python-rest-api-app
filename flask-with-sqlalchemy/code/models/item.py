@@ -27,7 +27,8 @@ class ItemModel(object):
         connection.close()
 
         if row: 
-            return {'item': {'name': row[0], 'price': row[1]}}
+            # return {'item': {'name': row[0], 'price': row[1]}}
+            return cls(*row) # unpacking data, better way to return the object
     
     # classmethod responsible for inserting the data
     # No classmethod, since we are inserting 
