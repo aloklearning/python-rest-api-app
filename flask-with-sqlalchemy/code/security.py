@@ -1,6 +1,6 @@
 # safe for comparision of string, in almost every python version
 # from werkzeug.security import safe_str_cmp
-from user import User
+from models.user import UserModel
 
 # users = [
 #     User(1, 'Bob', 'asdf')
@@ -15,7 +15,7 @@ from user import User
 #Generates JWT Token after performing this action
 def authenticate(username, password):
     #user = username_mapping.get(username, None) # <user.User object at 0x10ed0eb10>
-    user = User.find_by_username(username)
+    user = UserModel.find_by_username(username)
     if user and user.password == password: #safe_str_cmp(user.password, password)
         return user # Becomes identiy for the JWT Token for authentication
 
@@ -31,5 +31,5 @@ That means that was a valid JWT token passsed by the user
 def identity(payload):
     user_id = payload['identity'] # identity is the user_id
     #return userid_mapping.get(user_id, None)
-    return User.find_by_id(user_id)
+    return UserModel.find_by_id(user_id)
 

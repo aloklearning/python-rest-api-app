@@ -1,4 +1,5 @@
 import sqlite3
+from models.item import ItemModel
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 
@@ -29,26 +30,11 @@ class Item(Resource):
 
         # using the classmethod to find the name
         # if found, store it into the variable
-        item = self.find_by_name(name)
+        item = ItemModel.find_by_name(name)
 
         if item:
             return item
         return {'message': 'Item not found'}, 404
-
-    
-    @classmethod
-    def find_by_name(cls, name):
-        # now this is using sqlite3
-        connection = sqlite3.connect('data.db')
-        cursor = connection.cursor()
-
-        query = "SELECT * FROM items WHERE name=?"
-        results = cursor.execute(query, (name,))
-        row = results.fetchone() # show one result only
-        connection.close()
-
-        if row: 
-            return {'item': {'name': row[0], 'price': row[1]}}
 
     # this handles the post request, this is simplified using flask_restful only
     def post(self, name):
@@ -59,7 +45,7 @@ class Item(Resource):
         #     return {'message': "The item is already there with the name '{ }'.".format(name)}, 400
 
         # This is for sqlite check operation
-        if self.find_by_name(name):
+        if ItemModel.find_by_name(name):
             # 400 Status code for Bad Request
             return {'message': "The item is already there with the name '{ }'.".format(name)}, 400
         
@@ -74,22 +60,11 @@ class Item(Resource):
         #items.append(item)
         
         # to check for the errors [If any]
-        try: self.insert(item)
+        try: ItemModel.insert(item)
         except: return {"message": "An error occured while inserting the item"}, 500 # Internal Server Error
 
         return item, 201 #flask_restful way of sending status 201 which is for CREATED STATUS
 
-    # classmethod responsible for inserting the data
-    @classmethod
-    def insert(cls, item):
-        connection = sqlite3.connect('data.db')
-        cursor = connection.cursor()
-
-        query = "INSERT INTO items VALUES (?, ?)"
-        cursor.execute(query, (item['name'], item['price']))
-
-        connection.commit()
-        connection.close()
 
     # This is for HTTP DELETE
     def delete(self, name):
@@ -114,7 +89,7 @@ class Item(Resource):
         data = Item.parser.parse_args()
 
         # item = next(filter(lambda x: x['name'] == name, items), None)
-        item = self.find_by_name(name) # searching for the item if exists or not
+        item = ItemModel.find_by_name(name) # searching for the item if exists or not
         updated_item = {'name': name, 'price': data['price']} # created for updated item data
         # if item is not found, then create a new item
         if item is None:
@@ -126,24 +101,10 @@ class Item(Resource):
         else:
             #item.update(data) # updates the item with the data received, if found
             try:
-                self.update(updated_item)
+                ItemModel.update(updated_item)
             except:
                 return {"message": "An error occured while updating"}, 500
         return updated_item
-
-    #class method which takes care of the update method
-    # We cannot use Flask-RESTful update() since it doesn't
-    # work for sqlite3
-    @classmethod
-    def update(cls, item):
-        connection = sqlite3.connect('data.db')
-        cursor = connection.cursor()
-
-        query = "UPDATE items SET price=? WHERE name=?"
-        cursor.execute(query, (item['price'], item['name']))
-
-        connection.commit()
-        connection.close()
 
 
 class ItemList(Resource):

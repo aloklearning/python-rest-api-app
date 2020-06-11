@@ -7,8 +7,8 @@ from flask_restful import Api
 from flask_jwt import JWT
 
 from security import identity, authenticate
-from user import UserRegister
-from item import ItemList, Item
+from resources.user import UserRegister
+from resources.item import ItemList, Item
 
 app = Flask(__name__)
 # This is an entity to identify
