@@ -27,6 +27,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
 app.secret_key = 'alok'
 api = Api(app) # this will allow very easily add resources to it, for any sort of operation PUT, POST, DELETE
 
+# This is a slight cleaner way of creating a table for us
+# Also it does create the data.db file for us, because it first looks into  line no. 17
+# and creates the file after finding the file name sqlite:///data.db
+@app.before_first_request
+def create_tables():
+    db.create_all() # this part creates all the tables for us which are defined in our Item and User or anywhere
+
 '''
 jwt takes app, identity and autheticate
 combined to autheticate the user
