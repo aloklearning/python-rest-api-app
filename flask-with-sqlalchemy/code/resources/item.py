@@ -10,6 +10,7 @@ class Item(Resource):
     # it ignores and takes only the specified param from the request
     parser = reqparse.RequestParser()
     parser.add_argument('price', type=float, required=True, help='Price cannot be left empty!')
+    parser.add_argument('store_id', type=int, required=True, help='Every item must have a store id!')
     
     # this get method is from resource, which represents the GET method
     # jwt will autheticate and then get the data here
@@ -61,7 +62,7 @@ class Item(Resource):
 
         # now creating the object of the class ItemModal
         # More of a simplification of a code in a more complex way
-        item = ItemModel(name, data['price'])
+        item = ItemModel(name, **data)
         #items.append(item)
         
         # to check for the errors [If any]
@@ -121,7 +122,7 @@ class Item(Resource):
             #     updated_item.insert()
             # except:
             #     return {"message": "An error occured while inserting"}, 500
-            item = ItemModel(name, data['price'])
+            item = ItemModel(name, **data)
         else:
             #item.update(data) # updates the item with the data received, if found
             # try:

@@ -10,9 +10,15 @@ class ItemModel(db.Model):
     name = db.Column(db.String(80))
     price = db.Column(db.Float(precision=2)) #precision takes care of the number after decimal point
 
-    def __init__(self, name, price):
+    # Foreign Key with stores, to populate the items in Store Model
+    # stores.id is the stores table name, and the id column of that table
+    store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
+    store = db.relationship('StoreModel') # doing JOIN operation for sqlite in SQLAlchemy way
+
+    def __init__(self, name, price, store_id):
         self.name = name
         self.price = price
+        self.store_id = store_id
 
     # going to return a JSON repr
     # of the result
