@@ -72,7 +72,7 @@ class Item(Resource):
             # and insert the args which we passed 
             # already. More of a simplification of 
             # a code in a more complex way
-            item.insert()
+            item.save_to_db()
         except: 
             return {"message": "An error occured while inserting the item"}, 500 # Internal Server Error
 
@@ -81,6 +81,7 @@ class Item(Resource):
 
     # This is for HTTP DELETE
     def delete(self, name):
+        '''
         # global items # This is to define that this is from the outer scope of this method
         # # Returns the item exept the item which has the name passed using lambda
         # items = list(filter(lambda x: x['name'] != name, items))
@@ -94,6 +95,12 @@ class Item(Resource):
 
         connection.commit()
         connection.close()
+        '''
+
+        #Using SqlAlchemy
+        item = ItemModel.find_by_name(name)
+        if item:
+            item.delete_from_db()
 
         return {'message': f'{name} has been successfully deleted'}
 
@@ -105,23 +112,28 @@ class Item(Resource):
         item = ItemModel.find_by_name(name) # searching for the item if exists or not
         # updated_item = {'name': name, 'price': data['price']} # created for updated item data
 
-        updated_item = ItemModel(name, data['price']) # object needs to be passed to call the Modal method
+        # updated_item = ItemModel(name, data['price']) # object needs to be passed to call the Modal method
         # if item is not found, then create a new item
         if item is None:
             #items.append(item) # old operation
-            try:
-                # self.insert(updated_item) # this will be stored as a new item only, if item is none
-                updated_item.insert()
-            except:
-                return {"message": "An error occured while inserting"}, 500
+            # try:
+            #     # self.insert(updated_item) # this will be stored as a new item only, if item is none
+            #     updated_item.insert()
+            # except:
+            #     return {"message": "An error occured while inserting"}, 500
+            item = ItemModel(name, data['price'])
         else:
             #item.update(data) # updates the item with the data received, if found
-            try:
-                # ItemModel.update(updated_item)
-                updated_item.update()
-            except:
-                return {"message": "An error occured while updating"}, 500
-        return updated_item.json()
+            # try:
+            #     # ItemModel.update(updated_item)
+            #     updated_item.update()
+            # except:
+            #     return {"message": "An error occured while updating"}, 500
+            item.price = data['price'] # simply adding the new value to the existing item for update
+        item.save_to_db() # SQLAlchemy operation
+        
+        return item.json() 
+        #return updated_item.json()
 
 
 class ItemList(Resource):

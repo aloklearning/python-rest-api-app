@@ -11,6 +11,10 @@ from resources.user import UserRegister
 from resources.item import ItemList, Item
 
 app = Flask(__name__)
+# telling Flask, where to find the DB
+# also, the database can be defined in this 'sqlite:////'
+# if posgres, make it postgres:///, oracle = oracle:/// etc
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 # Turning the Flask Sqlalchemy track off explicitely, since 
 # SQLAlchemy has it's own Track Modification. By Track 
 # Modification we mean that Whatever operation we do

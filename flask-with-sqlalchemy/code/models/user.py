@@ -12,16 +12,16 @@ class UserModel(db.Model):
     __tablename__ = 'users'
 
     # This will tell SQLAlchemy about columns
-    # We don't have to create the table, SQLAlchemy does 
-    # that for us
-    # The name should match with the elements which is there 
-    # in __init__ 
+    # It will look directly into the tables with those
+    # columns and then fetch the data and directly insert
+    # the data into the Class Object as an args
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80))
     password = db.Column(db.String(80))
 
-    def __init__(self, _id, username, password):
-        self.id = _id
+    # _id is not required, since it is already a PRIMARY KEY,
+    # hence, it will auto increment whenever we create some user
+    def __init__(self, username, password):
         self.username = username
         self.password = password
 
@@ -29,6 +29,7 @@ class UserModel(db.Model):
     # so to write more cleaner code, @classmethod is used
     @classmethod
     def find_by_username(cls, username):
+        '''
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
 
@@ -46,9 +47,16 @@ class UserModel(db.Model):
         # no connection.commit() is rquired since, we are not creating something to be saved
         connection.close()
         return user
+        '''
+        return cls.query.filter_by(username=username).first()
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
 
     @classmethod
     def find_by_id(cls, _id):
+        '''
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
 
@@ -66,3 +74,5 @@ class UserModel(db.Model):
         # no connection.commit() is rquired since, we are not creating something to be saved
         connection.close()
         return user
+        '''
+        return cls.query.filter_by(id=_id).first()

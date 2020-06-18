@@ -20,6 +20,7 @@ class UserRegister(Resource):
         if UserModel.find_by_username(data['username']):
             return {"message": "A user with that username already exists"}, 400
         
+        '''
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
         query = "INSERT INTO users VALUES (NULL, ?, ?)" # NULL is for auto increment, it will suffice
@@ -28,5 +29,11 @@ class UserRegister(Resource):
 
         connection.commit()
         connection.close()
+        '''
+
+        #SQLAlchemy way of creating the user
+        user = UserModel(**data)
+        user.save_to_db()
 
         return {"message": "User created successfully."}, 201
+
