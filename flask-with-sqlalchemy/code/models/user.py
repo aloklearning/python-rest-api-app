@@ -1,13 +1,25 @@
 # This is the model package, and the user is there, since
 # it was not a Resource and more of a modal class
 import sqlite3
+from db import db
 
 '''
-This basically contains an object of the user 
-in the form of a class for the usage in the security.py file
-self is really there to interact with the class object
+db.Model will tell the Model, that is User,
+to map with the database
 '''
-class UserModel(object):
+class UserModel(db.Model):
+    # This tell the SQLAlchemy about the table name
+    __tablename__ = 'users'
+
+    # This will tell SQLAlchemy about columns
+    # We don't have to create the table, SQLAlchemy does 
+    # that for us
+    # The name should match with the elements which is there 
+    # in __init__ 
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80))
+    password = db.Column(db.String(80))
+
     def __init__(self, _id, username, password):
         self.id = _id
         self.username = username

@@ -11,6 +11,11 @@ from resources.user import UserRegister
 from resources.item import ItemList, Item
 
 app = Flask(__name__)
+# Turning the Flask Sqlalchemy track off explicitely, since 
+# SQLAlchemy has it's own Track Modification. By Track 
+# Modification we mean that Whatever operation we do
+app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
+
 # This is an entity to identify
 # that the this is authenticated for encryption 
 # identification. The secret key to be complicated when 
@@ -53,6 +58,9 @@ api.add_resource(UserRegister, '/register') # this is coming from the user.py fi
 # in the same file, and not imported from 
 # some other file. Best Practise
 if __name__ == "__main__":
+    # circular import
+    from db import db
+    db.init_app(app)
     # debug=true gives out a detailed desc of 
     # what went wrong in the server side
     # auto refresh the server when making changes

@@ -1,8 +1,15 @@
 # Internal representation what an item does and 
 # how it looks like
 import sqlite3
+from db import db
 
-class ItemModel(object):
+class ItemModel(db.Model):
+    __tablename__ = 'items'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80))
+    price = db.Column(db.Float(precision=2)) #precision takes care of the number after decimal point
+
     def __init__(self, name, price):
         self.name = name
         self.price = price
