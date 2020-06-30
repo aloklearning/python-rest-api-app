@@ -10,7 +10,7 @@ class StoreModel(db.Model):
     # and finds the relationship, checks for MANY TO ONE Relationship
     # the store can contain many items, hence we get the array or list
     # of items here
-    items = db.relationship('ItemModel') 
+    items = db.relationship('ItemModel', lazy='dynamic') 
 
     def __init__(self, name):
         self.name = name
@@ -18,7 +18,7 @@ class StoreModel(db.Model):
     # going to return a JSON repr
     # of the result
     def json(self):
-        return {'name': self.name, 'items': [item.json for item in self.items]}
+        return {'name': self.name, 'items': [item.json() for item in self.items.all()]}
 
     # Classmethod Cos it is gonna return an 
     # object of type item model instead 

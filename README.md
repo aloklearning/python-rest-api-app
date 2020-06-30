@@ -27,5 +27,5 @@
 - `flask-restful-app` consists of the `code/new-app.py` contains the file with advanced operation with `flask-restful` and `flsak-jwt`
 - `flask-with-sqldb` consists of same folders like, `code/new-app.py` with operation using `sqlite3`, which is used as our database. So this is not at all working volatile data now. The data is being stored in the `data.db` file, which is the DataBase file in this case
 - Information for advanced operation is inside the [Commands.md](https://github.com/aloklearning/python-rest-api-app/blob/master/flask-restful-app/Commands.md)
-- `flask-with-sqlalchemy` contains the folders having installed `Fask`, `Flask-JWT`, `Flask-RESTful` and `Falsk-SQLAlchemy` in the virtual envorinment. To install `SQLAlchemy`, just do `pip3/pip install Flask-SQLAlchemy` and it will be installed in your vritual environment
+- `flask-with-sqlalchemy` contains the folders having installed `Flask`, `Flask-JWT`, `Flask-RESTful` and `Falsk-SQLAlchemy` in the virtual envorinment. To install `SQLAlchemy`, just do `pip3/pip install Flask-SQLAlchemy` and it will be installed in your vritual environment
 - To copy folder's content to another folder, here is the terminal command *For Mac* `cp <from-foldername>/* <To-Foldername>`. For example `cp ../flask-with-sqldb/code/* code/`
