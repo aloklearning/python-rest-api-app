@@ -9,6 +9,7 @@ from flask_jwt import JWT
 from security import identity, authenticate
 from resources.user import UserRegister
 from resources.item import ItemList, Item
+from resources.store import Store, StoreList
 
 app = Flask(__name__)
 # telling Flask, where to find the DB
@@ -64,6 +65,10 @@ jwt = JWT(app, authenticate, identity) # /auth is the url which JWT provides
 api.add_resource(Item, '/item/<string:name>') #http://127.0.0.1:5000/item/item_name
 api.add_resource(ItemList, '/items')
 api.add_resource(UserRegister, '/register') # this is coming from the user.py file
+
+# This is for Store API
+api.add_resource(Store, '/store/<string:name>')
+api.add_resource(StoreList, '/stores')
 
 # This ensures that the app file is created
 # in the same file, and not imported from 

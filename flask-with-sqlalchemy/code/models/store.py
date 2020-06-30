@@ -12,9 +12,8 @@ class StoreModel(db.Model):
     # of items here
     items = db.relationship('ItemModel') 
 
-    def __init__(self, name, price):
+    def __init__(self, name):
         self.name = name
-        self.price = price
 
     # going to return a JSON repr
     # of the result
