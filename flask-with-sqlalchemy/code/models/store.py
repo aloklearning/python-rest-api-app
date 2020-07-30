@@ -18,7 +18,14 @@ class StoreModel(db.Model):
     # going to return a JSON repr
     # of the result
     def json(self):
-        return {'name': self.name, 'items': [item.json() for item in self.items.all()]}
+        return {'id': self.id, 'name': self.name, 
+            'items': [item.json() for item in self.items.all()]}
+
+    # a cleaner way of doing thing query.all()
+    # to make the process a little bit lighter
+    @classmethod
+    def find_all(cls):
+        return cls.query.all()
 
     # Classmethod Cos it is gonna return an 
     # object of type item model instead 

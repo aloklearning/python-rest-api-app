@@ -1,0 +1,7 @@
+This file consists of the Libraries to be installed when we are 
+using some other laptop with this project or passing this project
+to some one
+
+1. Flask-JWT
+2. Flask-RESTful
+3. Flask-SQLAlchemy
