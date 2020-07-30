@@ -160,4 +160,4 @@ class ItemList(Resource):
         connection.close()
         return {'items': items} # always in dictionary format
         '''
-        return {'items': [item.json() for item in ItemModel.query.all()]}
+        return {'items': list(map(lambda x: x.json(), ItemModel.query.all()))}
