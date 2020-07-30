@@ -21,6 +21,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 # Modification we mean that Whatever operation we do
 app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
 
+# this will give out the exception in a more brief 
+# way for Flask exception, here in our case it is JWT
+app.config['PROPAGATE_EXCEPTIONS'] = True
+
 # This is an entity to identify
 # that the this is authenticated for encryption 
 # identification. The secret key to be complicated when 
